@@ -13,7 +13,7 @@ interface ReactiveStore<in Key, Value> {
 
     fun storeAll(modelList: List<Value>): Completable
 
-    fun replaceAll(modelList: List<Value>)
+    fun replaceAll(modelList: List<Value>): Completable
 
     fun getSingular(key: Key): Observable<Optional<Value>>
 

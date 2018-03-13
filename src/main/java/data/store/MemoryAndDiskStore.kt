@@ -1,6 +1,7 @@
 package com.traumtraum.adventapp2.base.arch.data.store
 
 import io.reactivex.Maybe
+import utils.Printer
 
 /**
  * Created by Lucia on 10/02/2018
@@ -29,6 +30,7 @@ class MemoryAndDiskStore<in Key, Value> constructor(private val memoryStore: Sto
                     .firstElement()
 
     override fun getAll(): Maybe<List<Value>> {
+        Printer.print("Get all from stores")
         return Maybe.concat(memoryStore.getAll(), getAllFromDiskAndPutInMemory())
                 .firstElement()
     }

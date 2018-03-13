@@ -9,11 +9,8 @@ import data.TimestampProvider;
 import data.store.disk_store.DiskCache;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
-import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import utils.Printer;
-
-import java.util.concurrent.TimeUnit;
 
 public class Experiment3 extends Experiment {
 
@@ -29,12 +26,15 @@ public class Experiment3 extends Experiment {
 
     @Override
     public void run() {
-        reactiveStore.getSingular("2")
+        Scheduler s = Schedulers.single();
+        Observable.just(1)
+                .observeOn(Schedulers.io())
+                .flatMap(__ -> reactiveStore.getAll())
                 .subscribe(valueList -> Printer.print(valueList.toString()));
 
         Observable.range(1, 10)
-                .toList()
-                .flatMapCompletable(value -> reactiveStore.storeAll(value))
+                .observeOn(Schedulers.io())
+                .flatMapCompletable(value -> reactiveStore.storeSingular(value))
                 .subscribe();
     }
 }

@@ -5,6 +5,6 @@ public class RxJavaPlayground {
     public static void main(String[] args) throws InterruptedException {
         Experiment3.create().run();
 
-        Thread.sleep(10000);
+        Thread.sleep(300000);
     }
 }
